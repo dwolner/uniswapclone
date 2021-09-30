@@ -1,8 +1,10 @@
 <template>
-    <div id="app" class="dark:bg-black">
+    <div id="app" class="bg-white dark:bg-black">
         <div id="background-overlay" />
-        <Nav />
-        <Swap />
+        <div class="z-1 relative">
+            <Nav />
+            <Swap />
+        </div>
     </div>
 </template>
 
@@ -14,27 +16,33 @@ export default {
     name: "EthereumApp",
     components: {
         Nav,
-        Swap
+        Swap,
+    },
+    created() {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.$store.dispatch('toggleDarkMode')
+        }
     },
 }
 </script>
 
 <style>
 #app {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    height: 100vh;
 }
 #background-overlay {
-    background: url('./assets/gradient_background.svg');
+    background: url("./assets/gradient_background.svg");
     background-size: cover;
-    opacity: .4;
-    position: absolute;
+    opacity: 0.4;
+    position: fixed;
     height: 100%;
     width: 100%;
-    z-index: -1;
+    z-index: 0;
 }
 </style>

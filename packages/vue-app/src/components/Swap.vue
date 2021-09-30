@@ -1,14 +1,18 @@
 <template>
-    <div class="flex justify-center p-4">
+    <div class="flex justify-center py-12">
         <div
-            class="w-full max-w-md p-2 bg-black bg-opacity-70 text-white rounded-2xl"
+            class="w-full max-w-md p-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold rounded-2xl shadow-md"
         >
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-2 relative">
                 <div class="flex justify-left p-2 pb-3">
                     <h6>Swap</h6>
                 </div>
                 <div class="flex justify-end items-start">
-                    <button>
+                    <button
+                        @click="
+                            showTransactionSettings = !showTransactionSettings
+                        "
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-6 w-6"
@@ -31,13 +35,14 @@
                         </svg>
                     </button>
                 </div>
+                <transaction-settings-modal
+                    :showTransactionSettings="showTransactionSettings"
+                />
             </div>
             <div
-                class="flex px-3 py-4 bg-gray-700 text-white rounded-2xl border-2 border-gray-600"
+                class="flex px-3 py-4 bg-gray-100 text-white dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
-                <button
-                    class="bg-black bg-opacity-70 text-white flex items-center"
-                >
+                <button class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center">
                     <cryptoicon symbol="eth" size="20" />
                     <h6 class="px-2">Ethereum</h6>
                     <svg
@@ -57,7 +62,7 @@
             </div>
             <div class="flex justify-center -my-3">
                 <button
-                    class="bg-gray-700 text-white rounded-2xl border-2 border-black border-opacity-50"
+                    class="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-white dark:border-gray-900 border-opacity-50 "
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -74,9 +79,12 @@
                 </button>
             </div>
             <div
-                class="flex px-3 py-4 bg-gray-700 text-white rounded-2xl border-2 border-gray-600"
+                class="flex px-3 py-4 bg-gray-100 text-white dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
-                <button class="bg-blue-600 text-white flex items-center pl-3">
+                <button
+                    class="bg-pink-600 dark:bg-blue-600 text-white font-bold flex items-center pl-3"
+                    @click="showSelectTokenModal = true"
+                >
                     <h6 class="pr-2">Select a token</h6>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -93,21 +101,39 @@
                 </button>
                 <input class="flex-1" :value="'0.0'" />
             </div>
-            <button class="w-full mt-2 py-3 bg-blue-900 text-blue-200">
+            <button
+                class="w-full mt-2 py-3 bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200"
+            >
                 <h6>Connect Wallet</h6>
             </button>
         </div>
+
+        <token-select
+            v-if="showSelectTokenModal"
+            @close="showSelectTokenModal = false"
+        />
     </div>
 </template>
 
 <script>
+import TokenSelect from "./TokenSelect.vue"
+import TransactionSettingsModal from "./TransactionSettingsModal.vue"
 export default {
     methods: {},
     name: "Swap",
     props: {
         msg: String,
     },
-    components: [],
+    data() {
+        return {
+            showTransactionSettings: false,
+            showSelectTokenModal: false,
+        }
+    },
+    components: {
+        TransactionSettingsModal,
+        TokenSelect,
+    },
     async mounted() {},
 }
 </script>
@@ -119,6 +145,8 @@ button {
 input {
     background: none;
     text-align: right;
-    font-size: 1.25rem;
+}
+p {
+    @apply text-sm;
 }
 </style>

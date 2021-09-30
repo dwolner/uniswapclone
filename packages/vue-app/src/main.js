@@ -4,33 +4,27 @@ import { createHttpLink } from "apollo-link-http"
 import Vue from "vue"
 import VueApollo from "vue-apollo"
 import "./main.css"
-
 import App from "./App.vue"
-import Cryptoicon from 'vue-cryptoicon'
-// For all icons
-import icon from 'vue-cryptoicon/src/icons'
-Cryptoicon.add(icon)
-Vue.use(Cryptoicon)
+import store from "./store.js"
 
+import Cryptoicon from "vue-cryptoicon"
+import icon from "vue-cryptoicon/src/icons"
+Cryptoicon.add(icon)
+
+Vue.use(Cryptoicon)
 Vue.config.productionTip = false
 
-// Cache implementation
 const cache = new InMemoryCache()
 
-// HTTP connection to the API
 const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  uri: "https://api.thegraph.com/subgraphs/name/paulrberg/create-eth-app",
+  uri: "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2",
 })
 
-// Create the apollo client
 const apolloClient = new ApolloClient({
   cache,
   link: httpLink,
 })
 
-// Install the vue plugin
-// With the apollo client instance
 Vue.use(VueApollo, {
   apolloClient,
 })
@@ -41,5 +35,6 @@ const apolloProvider = new VueApollo({
 
 new Vue({
   apolloProvider,
+  store,
   render: h => h(App),
 }).$mount("#app")

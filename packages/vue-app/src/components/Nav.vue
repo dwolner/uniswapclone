@@ -9,15 +9,15 @@
             <div class="flex justify-center">
                 <Tabs />
             </div>
-            <div class="flex justify-end">
-                <button class="bg-gray-700 bg-opacity-80 text-white flex items-center">
+            <div class="flex justify-end relative">
+                <button class="bg-white text-black flex items-center">
 					<cryptoicon symbol="eth" size="20" />
                     <h6 class="pl-2">Ethereum</h6>
                 </button>
-                <button class="bg-blue-800 bg-opacity-80 text-white">
+                <button class="bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200">
                     <h6>Connect to a wallet</h6>
                 </button>
-                <button class="bg-black bg-opacity-80 text-white">
+                <button class="bg-white dark:bg-gray-900 dark:text-white" @click="showNavSettings = !showNavSettings">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -29,22 +29,28 @@
                         />
                     </svg>
                 </button>
+
+                <nav-settings-modal :showNavSettings="showNavSettings" />
             </div>
         </div>
     </nav>
 </template>
 
 <script>
-import Tabs from "./Tabs.vue"
+import NavSettingsModal from './NavSettingsModal.vue'
+import Tabs from './Tabs.vue'
 
 export default {
     methods: {},
-    name: "Nav",
-    props: {
-        msg: String,
+    name: 'Nav',
+    data() {
+        return {
+            showNavSettings: false
+        }
     },
     components: {
         Tabs,
+        NavSettingsModal,
     },
     async mounted() {},
 }
