@@ -7,7 +7,7 @@
             <input
                 type="number"
                 placeholder="0.0"
-                v-model="swapTokenAmount[tokenSelectType]"
+                v-model="inputModel"
                 @input="$emit('calculateExchangeForAmount')"
             />
         </div>
@@ -39,6 +39,21 @@ export default {
                       amountForTokenType * this.tokenForSwapCurrentPrice
                   ).toFixed(2)
                 : ''
+        },
+        inputModel: {
+            set(val) {
+                this.tokenForSwapInput && this.wallet.address
+                    ? this.$store.commit('setSwapTokenAmount', {
+                          type: this.tokenSelectType,
+                          amount: val,
+                      })
+                    : ''
+            },
+            get() {
+                return this.tokenForSwapInput && this.wallet.address
+                    ? this.swapTokenAmount[this.tokenSelectType]
+                    : ''
+            },
         },
         tokenForSwapInput() {
             return this.swapToken[this.tokenSelectType]
