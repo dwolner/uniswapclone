@@ -77,7 +77,7 @@ export default {
 
 <style scoped>
 input {
-    @apply flex-1 text-xl bg-transparent text-right;
+    @apply flex-1 text-sm md:text-xl bg-transparent text-right;
 }
 p {
     @apply pt-2 px-1 text-sm;

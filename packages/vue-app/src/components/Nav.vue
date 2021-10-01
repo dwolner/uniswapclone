@@ -33,7 +33,7 @@
             </button>
             <button
                 v-else
-                class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center px-3 py-1 mx-1 rounded-xl"
+                class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center px-3 py-1 mx-1 rounded-xl text-xs sm:text-lg"
             >
                 <h6 class="pl-2">
                     {{ $store.state.wallet.balance }} ETH

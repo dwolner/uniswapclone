@@ -56,7 +56,7 @@
                         ;(tokenSelectType = 'to'), (showSelectTokenModal = true)
                     "
                 >
-                    <h6 class="px-2">Select a token</h6>
+                    <h6 class="px-2">Select <span class="hidden sm:inline-flex">a token</span></h6>
                     <ChevronDownIcon width="18" height="18" />
                 </button>
                 <button
