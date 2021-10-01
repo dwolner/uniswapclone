@@ -17,10 +17,15 @@ yarn vue-app:build
 ```
 ## Current Features
 Keeps state using Vuex.
+
 Routing with Vue Router: `/` and `/pool`.
-Has main swao interface including 'Select a token' modal with 'Manage token list' interface and 'Transaction settings' modal.
+
+Has main swap interface including 'Select a token' modal with 'Manage token list' interface and 'Transaction settings' modal.
+
 Spoofs Metamask connection with `wallet.address` and `wallet.balance` etc.
+
 Includes Dark mode.
+
 Includes pool UI.
 
 ## Deployment Demo
