@@ -101,8 +101,22 @@
                     <button
                         class="w-full flex rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white font-bold py-1 px-1"
                     >
-                        <span :class="`flex-1 py-3 px-3 mx-1 rounded-xl ${true ? 'bg-white dark:bg-gray-800' : ''}`">Lists</span>
-                        <span :class="`flex-1 py-3 px-3 mx-1 rounded-xl ${false ? 'bg-white dark:bg-gray-800' : ''}`">Tokens</span>
+                        <span
+                            :class="
+                                `flex-1 py-3 px-3 mx-1 rounded-xl ${
+                                    true ? 'bg-white dark:bg-gray-800' : ''
+                                }`
+                            "
+                            >Lists</span
+                        >
+                        <span
+                            :class="
+                                `flex-1 py-3 px-3 mx-1 rounded-xl ${
+                                    false ? 'bg-white dark:bg-gray-800' : ''
+                                }`
+                            "
+                            >Tokens</span
+                        >
                     </button>
                 </div>
                 <input
@@ -117,7 +131,13 @@
                 <div
                     v-for="list in tokenListsFilter"
                     :key="list.symbol"
-                    :class="`flex p-3 items-center cursor-pointer ${ selectedLists.includes(list.name) ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-800' } text-gray-800 dark:text-gray-100 rounded-xl mx-6 my-4`"
+                    :class="
+                        `flex p-3 items-center cursor-pointer ${
+                            selectedLists.includes(list.name)
+                                ? 'bg-gray-300 dark:bg-gray-600'
+                                : 'bg-gray-100 dark:bg-gray-800'
+                        } text-gray-800 dark:text-gray-100 rounded-xl mx-6 my-4`
+                    "
                 >
                     <div class="px-3">
                         <img :src="list.logoURI" class="w-10" />
@@ -130,14 +150,30 @@
                     </div>
                     <div>
                         <div
-                            :class="`flex ${ selectedLists.includes(list.name) ? 'flex-row-reverse' : '' } items-center bg-white dark:bg-gray-900 text-gray-700 dark:text-white rounded-2xl p-2`"
+                            :class="
+                                `flex ${
+                                    selectedLists.includes(list.name)
+                                        ? 'flex-row-reverse'
+                                        : ''
+                                } items-center bg-white dark:bg-gray-900 text-gray-700 dark:text-white rounded-2xl p-2`
+                            "
                             @click="$emit('userSelectedList', list.name)"
                         >
                             <div class="mx-2 text-sm font-bold">
-                               {{selectedLists.includes(list.name) ? 'ON' : 'OFF'}}
+                                {{
+                                    selectedLists.includes(list.name)
+                                        ? 'ON'
+                                        : 'OFF'
+                                }}
                             </div>
                             <span
-                                :class="`rounded-full h-6 w-6 ${ selectedLists.includes(list.name) ? 'bg-gray-500' : 'bg-gray-300 dark:bg-gray-800' }`"
+                                :class="
+                                    `rounded-full h-6 w-6 ${
+                                        selectedLists.includes(list.name)
+                                            ? 'bg-gray-500'
+                                            : 'bg-gray-300 dark:bg-gray-800'
+                                    }`
+                                "
                             ></span>
                         </div>
                     </div>
@@ -183,8 +219,8 @@ export default {
     data() {
         return {
             showManageTokenLists: false,
-            tokenSearchTerm: "",
-            tokenListSearchTerm: "",
+            tokenSearchTerm: '',
+            tokenListSearchTerm: '',
         }
     },
     components: {
@@ -193,6 +229,7 @@ export default {
         XIcon,
         ExternalLinkIcon,
     },
+    // TODO: get real time token list from subgraph
     // apollo: {
     //     tokens: gql`
     //         query {

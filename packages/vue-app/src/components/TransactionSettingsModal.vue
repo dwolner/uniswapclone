@@ -11,7 +11,9 @@
             <QuestionMarkCircleIcon width="20" height="20" />
         </div>
         <div class="flex pb-2">
-            <button class="bg-pink-600 dark:bg-blue-600 text-white rounded-2xl p-2">
+            <button
+                class="bg-pink-600 dark:bg-blue-600 text-white rounded-2xl p-2"
+            >
                 <h6>Auto</h6>
             </button>
             <input
@@ -38,9 +40,31 @@
                 <p class="pr-2">Auto Router</p>
                 <QuestionMarkCircleIcon width="20" height="20" />
             </div>
-            <button class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1">
-                <span :class="`rounded-xl py-1 px-2 text-sm ${autoRouterSwitch ? 'bg-gray-300 dark:bg-gray-700' : ''}`" @click="autoRouterSwitch = !autoRouterSwitch">On</span>
-                <span :class="`rounded-xl py-1 px-2 text-sm ${!autoRouterSwitch ? 'bg-gray-300 dark:bg-gray-700' : ''}`" @click="autoRouterSwitch = !autoRouterSwitch">Off</span>
+            <button
+                class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1"
+            >
+                <span
+                    :class="
+                        `rounded-xl py-1 px-2 text-sm ${
+                            autoRouterSwitch
+                                ? 'bg-gray-300 dark:bg-gray-700'
+                                : ''
+                        }`
+                    "
+                    @click="autoRouterSwitch = !autoRouterSwitch"
+                    >On</span
+                >
+                <span
+                    :class="
+                        `rounded-xl py-1 px-2 text-sm ${
+                            !autoRouterSwitch
+                                ? 'bg-gray-300 dark:bg-gray-700'
+                                : ''
+                        }`
+                    "
+                    @click="autoRouterSwitch = !autoRouterSwitch"
+                    >Off</span
+                >
             </button>
         </div>
 
@@ -49,19 +73,43 @@
                 <p class="pr-2">Expert Mode</p>
                 <QuestionMarkCircleIcon width="20" height="20" />
             </div>
-            <button class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1">
-                <span :class="`rounded-xl py-1 px-2 text-sm ${expertModeSwitch ? 'bg-gray-300 dark:bg-gray-700' : ''}`" @click="expertModeSwitch = !expertModeSwitch">On</span>
-                <span :class="`rounded-xl py-1 px-2 text-sm ${!expertModeSwitch ? 'bg-gray-300 dark:bg-gray-700' : ''}`" @click="expertModeSwitch = !expertModeSwitch">Off</span>
+            <button
+                class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1"
+            >
+                <span
+                    :class="
+                        `rounded-xl py-1 px-2 text-sm ${
+                            expertModeSwitch
+                                ? 'bg-gray-300 dark:bg-gray-700'
+                                : ''
+                        }`
+                    "
+                    @click="expertModeSwitch = !expertModeSwitch"
+                    >On</span
+                >
+                <span
+                    :class="
+                        `rounded-xl py-1 px-2 text-sm ${
+                            !expertModeSwitch
+                                ? 'bg-gray-300 dark:bg-gray-700'
+                                : ''
+                        }`
+                    "
+                    @click="expertModeSwitch = !expertModeSwitch"
+                    >Off</span
+                >
             </button>
         </div>
     </div>
 </template>
 
 <script>
-import { QuestionMarkCircleIcon } from "@vue-hero-icons/outline"
+import { QuestionMarkCircleIcon } from '@vue-hero-icons/outline'
 export default {
-    methods: {},
-    name: "TransactionSettingsModal",
+    methods: {
+        //TODO: connect to real time transaction settings for swap
+    },
+    name: 'TransactionSettingsModal',
     props: {
         showTransactionSettings: Boolean,
     },

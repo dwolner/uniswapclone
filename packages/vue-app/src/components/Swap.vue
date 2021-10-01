@@ -43,7 +43,9 @@
                         @input="calculateExchangeForAmount('from')"
                     />
                 </div>
-                <div class="flex justify-between text-gray-500 dark:text-gray-300">
+                <div
+                    class="flex justify-between text-gray-500 dark:text-gray-300"
+                >
                     <p
                         v-if="this.$store.state.wallet.address"
                         class="pt-2 px-1"
@@ -167,6 +169,7 @@ export default {
             this.$store.commit('updateSelectedLists', name)
         },
         walletBalanceFor() {
+            //TODO: find real wallet balance for token symbol
             return this.$store.state.wallet.balance
         },
         swapAction() {
@@ -175,6 +178,7 @@ export default {
             }
         },
         getCurrentPriceFor() {
+            //TODO: pull in real time price for selected token
             return 3000
         },
         calculateExchangeForAmount(type) {
@@ -257,6 +261,7 @@ export default {
             return msg
         },
         exchangeRate() {
+            // TODO: pull in real time exchange rates for selected tokens
             return this.$store.state.swapToken.from &&
                 this.$store.state.swapToken.to
                 ? 0.543

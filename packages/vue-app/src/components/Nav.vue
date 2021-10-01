@@ -1,5 +1,7 @@
 <template>
-    <nav class="w-full flex justify-between items-center px-3 py-4 relative z-10">
+    <nav
+        class="w-full flex justify-between items-center px-3 py-4 relative z-10"
+    >
         <div class="flex xl:flex-1 items-center">
             <div class="hover:rotate-60 w-max px-2">
                 <img

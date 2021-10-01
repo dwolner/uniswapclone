@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+//TODO: spoofing token and wallet data, pull real data from subgraph
 import dummyTokens from './dummyTokens.js'
 import dummyTokenLists from './dummyTokenLists.js'
 import dummyWallets from './dummyWallets.js'
@@ -22,6 +24,7 @@ const state = {
         to: 0
     },
     wallet: {
+        //TODO: hardwired to metamask for testing
         type: 'metamask',
         address: '',
         balance: 0

@@ -2,13 +2,3 @@ yarn create eth-app uniswapclone --framework vue
 yarn add vuex
 tailwind
 yarn vue-app:serve
-
-
-add more token list dummy data
-tooltips
-finish dark mode colors
-pool user interface
-apollo api caching and refreshing
-make sure all component names are correct
-write readme
-deploy to vercel/netlify

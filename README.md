@@ -20,6 +20,8 @@ Keeps state using Vuex.
 
 Routing with Vue Router: `/` and `/pool`.
 
+Fully responsive UI.
+
 Has main swap interface including 'Select a token' modal with 'Manage token list' interface and 'Transaction settings' modal.
 
 Spoofs Metamask connection with `wallet.address` and `wallet.balance` etc.
@@ -27,6 +29,22 @@ Spoofs Metamask connection with `wallet.address` and `wallet.balance` etc.
 Includes Dark mode.
 
 Includes pool UI.
+
+## To Complete
+Real tokens, token lists data
+
+Wallet connections 
+
+Transaction settings
+
+More menu items
+
+Pool user functionality
+
+Apollo api caching and refreshing
+
+Tooltips
+
 
 ## Deployment Demo
 https://uniswapclone-4wkxoqgvr-dwolner.vercel.app/#/

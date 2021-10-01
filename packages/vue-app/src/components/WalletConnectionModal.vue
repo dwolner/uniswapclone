@@ -62,34 +62,33 @@
 
 <script>
 // import gql from 'graphql-tag'
-import { mapState } from "vuex"
-import { XIcon } from "@vue-hero-icons/outline"
+import { mapState } from 'vuex'
+import { XIcon } from '@vue-hero-icons/outline'
 
 export default {
     methods: {
         connectWallet() {
+            //TODO: spoofing wallet address, retrieve real address
             let walletAddress = '0xE838nf893d8hdn93nd9xn39m'
             this.$store.commit('setWalletAddress', walletAddress)
             this.$emit('close')
-        }
+        },
     },
-    name: "WalletConnectionModal",
-    props: {
-        msg: String,
-    },
+    name: 'WalletConnectionModal',
     computed: {
-        ...mapState(["wallets"]),
+        ...mapState(['wallets']),
     },
     data() {
         return {
             showManageTokenLists: true,
-            tokenSearchTerm: "",
-            tokenListSearchTerm: "",
+            tokenSearchTerm: '',
+            tokenListSearchTerm: '',
         }
     },
     components: {
         XIcon,
     },
+    //TODO: get list of valid wallets
     // apollo: {
     //     tokens: gql`
     //         query {

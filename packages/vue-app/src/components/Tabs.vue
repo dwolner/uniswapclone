@@ -4,10 +4,13 @@
     >
         <router-link :to="tab.path" v-for="tab in tabs" :key="tab.name">
             <div class="py-1 px-3 mx-1 rounded-xl">
-                {{tab.name}}
+                {{ tab.name }}
             </div>
         </router-link>
-        <span class="flex py-1 px-3 mx-1 rounded-xl" @click="openLink('https://info.uniswap.org/#/')">
+        <span
+            class="flex py-1 px-3 mx-1 rounded-xl"
+            @click="openLink('https://info.uniswap.org/#/')"
+        >
             <div class="mr-1">Charts</div>
             <ExternalLinkIcon width="12" height="12" />
         </span>
@@ -15,33 +18,32 @@
 </template>
 
 <script>
-import { ExternalLinkIcon } from "@vue-hero-icons/outline"
+import { ExternalLinkIcon } from '@vue-hero-icons/outline'
 export default {
     methods: {
         openLink(url) {
             window.open(url)
-        }
+        },
     },
-    name: "Tabs",
+    name: 'Tabs',
     data() {
         return {
             activeTab(tab) {
-                console.log('activeTab: ', tab.path, window.location.pathname)
                 return tab.path === window.location.pathname
             },
             tabs: [
                 {
-                    name: "Swap",
-                    path: "/",
+                    name: 'Swap',
+                    path: '/',
                 },
                 {
-                    name: "Pool",
-                    path: "/pool",
+                    name: 'Pool',
+                    path: '/pool',
                 },
                 {
-                    name: "Vote",
-                    path: "/vote",
-                }
+                    name: 'Vote',
+                    path: '/vote',
+                },
             ],
         }
     },
