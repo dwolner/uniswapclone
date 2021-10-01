@@ -201,24 +201,29 @@ export default {
         switchToAndFromTokensandAmounts() {
             let fromTokenSymbol = this.$store.state.swapToken.from
             let toTokenSymbol = this.$store.state.swapToken.to
-            this.$store.commit('setSwapToken', {
-                type: 'from',
-                symbol: toTokenSymbol,
-            })
-            this.$store.commit('setSwapToken', {
-                type: 'to',
-                symbol: fromTokenSymbol,
-            })
+            if (fromTokenSymbol && toTokenSymbol) {
+                this.$store.commit('setSwapToken', {
+                    type: 'from',
+                    symbol: toTokenSymbol,
+                })
+                this.$store.commit('setSwapToken', {
+                    type: 'to',
+                    symbol: fromTokenSymbol,
+                })
+            }
+
             let fromTokenAmount = this.$store.state.swapTokenAmount.from
             let toTokenAmount = this.$store.state.swapTokenAmount.to
-            this.$store.commit('setSwapTokenAmount', {
-                type: 'from',
-                amount: toTokenAmount,
-            })
-            this.$store.commit('setSwapTokenAmount', {
-                type: 'to',
-                amount: fromTokenAmount,
-            })
+            if (fromTokenAmount && toTokenAmount) {
+                this.$store.commit('setSwapTokenAmount', {
+                    type: 'from',
+                    amount: toTokenAmount,
+                })
+                this.$store.commit('setSwapTokenAmount', {
+                    type: 'to',
+                    amount: fromTokenAmount,
+                })
+            }
         },
     },
     name: 'Swap',

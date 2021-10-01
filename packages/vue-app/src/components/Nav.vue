@@ -25,10 +25,57 @@
                 <h6 class="hidden sm:flex pl-2">Ethereum</h6>
             </button>
             <button
+                v-if="!this.$store.state.wallet.address"
                 class="bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200 px-3 py-1 mx-1 rounded-xl"
                 @click="$store.commit('setShowWalletConnectionModal', true)"
             >
                 <h6>Connect to a wallet</h6>
+            </button>
+            <button
+                v-else
+                class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center px-3 py-1 mx-1 rounded-xl"
+            >
+                <h6 class="pl-2">
+                    {{ $store.state.wallet.balance }} ETH
+                </h6>
+                <h6 class="px-2">
+                    {{ $store.state.wallet.address.substring(0, 6) }}...{{
+                        $store.state.wallet.address.substring(
+                            $store.state.wallet.address.length - 4,
+                            $store.state.wallet.address.length
+                        )
+                    }}
+                </h6>
+                <div
+                    style="overflow: hidden; width: 16px; height: 16px; background-color: rgb(36, 96, 225); border-radius: 8px;"
+                >
+                    <svg width="16px" height="16px">
+                        <rect
+                            x="0"
+                            y="0"
+                            width="16"
+                            height="16"
+                            fill="#F74501"
+                            transform="translate(0.7861742157168673 -0.3238474544961139) rotate(412.9 8 8)"
+                        ></rect>
+                        <rect
+                            x="0"
+                            y="0"
+                            width="16"
+                            height="16"
+                            fill="#F1A402"
+                            transform="translate(-5.224638615770483 2.205513125268286) rotate(189.6 8 8)"
+                        ></rect>
+                        <rect
+                            x="0"
+                            y="0"
+                            width="16"
+                            height="16"
+                            fill="#F3C700"
+                            transform="translate(-13.574405275541888 5.189193012034317) rotate(205.6 8 8)"
+                        ></rect>
+                    </svg>
+                </div>
             </button>
             <button
                 class="bg-white dark:bg-gray-900 dark:text-white px-3 py-1 mx-1 rounded-xl"
