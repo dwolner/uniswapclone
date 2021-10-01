@@ -33,7 +33,7 @@
                 <button
                     v-for="token in commonTokens"
                     :key="token.symbol"
-                    class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center border-2 border-gray-200 dark:border-gray-500 m-1 py-1 px-2"
+                    class="hoverItem bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center border-2 border-gray-200 dark:border-gray-500 m-1 py-1 px-2"
                     @click="
                         $emit('userSelectedToken', token.symbol), $emit('close')
                     "
@@ -48,7 +48,7 @@
                 <div
                     v-for="token in tokenFilter"
                     :key="token.symbol"
-                    class="flex p-3 items-center cursor-pointer hover:bg-gray-100 dark:hover:bg-grey-800"
+                    class="hoverItem flex p-3 items-center cursor-pointer"
                     @click="
                         $emit('userSelectedToken', token.symbol), $emit('close')
                     "
@@ -104,7 +104,7 @@
                         <span
                             :class="
                                 `flex-1 py-3 px-3 mx-1 rounded-xl ${
-                                    true ? 'bg-white dark:bg-gray-800' : ''
+                                    true ? 'bg-white dark:bg-gray-900' : ''
                                 }`
                             "
                             >Lists</span
@@ -112,7 +112,7 @@
                         <span
                             :class="
                                 `flex-1 py-3 px-3 mx-1 rounded-xl ${
-                                    false ? 'bg-white dark:bg-gray-800' : ''
+                                    false ? 'bg-white dark:bg-gray-900' : ''
                                 }`
                             "
                             >Tokens</span
@@ -241,7 +241,6 @@ export default {
     //         }
     //     `,
     // },
-    async mounted() {},
 }
 </script>
 
@@ -250,11 +249,12 @@ button {
     @apply rounded-2xl;
 }
 input {
-    background: none;
-    font-size: 1.25rem;
-    @apply p-3 rounded-2xl;
+    @apply bg-transparent text-xl p-3 rounded-2xl;
 }
-.active {
-    @apply bg-gray-200 rounded-xl;
+.hoverItem:hover {
+    @apply bg-gray-100;
+}
+.dark .hoverItem:hover {
+    @apply bg-gray-800;
 }
 </style>

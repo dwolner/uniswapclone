@@ -4,7 +4,9 @@
         <div class="z-0 relative">
             <Nav />
             <router-view></router-view>
-            <wallet-connection-modal v-if="showWalletConnectionModal" @close="$store.commit('setShowWalletConnectionModal', false)" />
+            <transition name="fade">
+                <wallet-connection-modal v-if="showWalletConnectionModal" @close="$store.commit('setShowWalletConnectionModal', false)" />
+            </transition>
         </div>
     </div>
 </template>

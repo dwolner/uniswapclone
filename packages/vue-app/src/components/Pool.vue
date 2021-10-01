@@ -56,13 +56,14 @@
             </div>
             <div class="w-full py-4">
                 <div
-                    class="p-6 bg-white dark:bg-gray-900 text-gray-700 dark:text-white rounded-2xl shadow-md"
+                    class="p-8 bg-white dark:bg-gray-900 text-gray-700 dark:text-white rounded-2xl shadow-md"
                 >
                     <div class="flex justify-center p-4">
                         <InboxIcon width="36" height="36" />
                     </div>
-                    <p>Your V3 liquidity positions will appear here.</p>
+                    <p class="p-4">Your V3 liquidity positions will appear here.</p>
                     <button
+                        v-if="!$store.state.wallet.address"
                         class="my-4 py-1 px-4 bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200 rounded-2xl"
                         @click="
                             $store.commit('setShowWalletConnectionModal', true)

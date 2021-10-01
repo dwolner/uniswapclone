@@ -49,7 +49,7 @@
                 @calculateExchangeForAmount="calculateExchangeForAmount('to')"
             >
                 <button
-                    v-if="!this.swapToken.to"
+                    v-if="!swapToken.to"
                     class="bg-pink-600 dark:bg-blue-600 text-white font-bold flex items-center"
                     @click="
                         ;(tokenSelectType = 'to'), (showSelectTokenModal = true)
@@ -88,12 +88,14 @@
             </button>
         </div>
 
-        <token-select
-            v-if="showSelectTokenModal"
-            @close="showSelectTokenModal = false"
-            @userSelectedToken="storeUserTokenSelect"
-            @userSelectedList="storeUserSelectedList"
-        />
+        <transition name="fade">
+            <token-select
+                v-if="showSelectTokenModal"
+                @close="showSelectTokenModal = false"
+                @userSelectedToken="storeUserTokenSelect"
+                @userSelectedList="storeUserSelectedList"
+            />
+        </transition>
     </div>
 </template>
 
@@ -177,7 +179,9 @@ export default {
                 type: this.tokenSelectType,
                 symbol,
             })
-            this.calculateExchangeForAmount(this.swapTokenAmount.from === 'from' ? 'to' : 'from')
+            this.calculateExchangeForAmount(
+                this.swapTokenAmount.from === 'from' ? 'to' : 'from'
+            )
         },
         storeUserSelectedList(name) {
             this.$store.commit('updateSelectedLists', name)

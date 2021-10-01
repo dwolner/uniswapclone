@@ -54,10 +54,10 @@ export default {
 
 <style scoped>
 .router-link-exact-active div {
-    background-color: rgb(209, 213, 219);
+    @apply bg-gray-100;
 }
 
 .dark .router-link-exact-active div {
-    background-color: rgb(55, 65, 81);
+    @apply bg-gray-700;
 }
 </style>
