@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center py-12">
+    <div class="flex justify-center py-12 px-4">
         <div
             class="w-full max-w-md p-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold rounded-2xl shadow-md"
         >
@@ -13,26 +13,7 @@
                             showTransactionSettings = !showTransactionSettings
                         "
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                            />
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                        </svg>
+                        <CogIcon width="22" height="22" />
                     </button>
                 </div>
                 <transaction-settings-modal
@@ -40,87 +21,179 @@
                 />
             </div>
             <div
-                class="flex px-3 py-4 bg-gray-100 text-white dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
+                class="px-3 py-4 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
-                <button class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center">
-                    <cryptoicon symbol="eth" size="20" />
-                    <h6 class="px-2">Ethereum</h6>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                <div class="flex">
+                    <button
+                        class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center"
+                        @click="
+                            ;(tokenSelectType = 'from'),
+                                (showSelectTokenModal = true)
+                        "
                     >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                </button>
-                <input class="flex-1" :value="'0.0'" />
+                        <cryptoicon :symbol="fromToken.symbol" size="20" />
+                        <h6 class="px-2">{{ fromToken.symbol }}</h6>
+                        <ChevronDownIcon width="18" height="18" />
+                    </button>
+                    <input
+                        type="number"
+                        placeholder="0.0"
+                        class="flex-1 text-xl"
+                        v-model="swapTokenAmount.from"
+                        @input="calculateExchangeForAmount('from')"
+                    />
+                </div>
+                <div class="flex justify-between text-gray-500 dark:text-gray-300">
+                    <p
+                        v-if="this.$store.state.wallet.address"
+                        class="pt-2 px-1"
+                    >
+                        Balance: {{ walletBalanceFor(fromToken.symbol) }}
+                        {{ fromToken.symbol }}
+                    </p>
+                    <p
+                        v-if="dollarAmountForToken('from', fromToken.symbol)"
+                        class="pt-2 px-1"
+                    >
+                        ~$ {{ dollarAmountForToken('from', fromToken.symbol) }}
+                    </p>
+                </div>
             </div>
             <div class="flex justify-center -my-3">
                 <button
                     class="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-white dark:border-gray-900 border-opacity-50 "
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-3 w-3"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
+                    <ArrowDownIcon width="12" height="12" />
                 </button>
             </div>
             <div
-                class="flex px-3 py-4 bg-gray-100 text-white dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
+                class="px-3 py-4 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
-                <button
-                    class="bg-pink-600 dark:bg-blue-600 text-white font-bold flex items-center pl-3"
-                    @click="showSelectTokenModal = true"
-                >
-                    <h6 class="pr-2">Select a token</h6>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                <div class="flex">
+                    <button
+                        v-if="!this.swapToken.to"
+                        class="bg-pink-600 dark:bg-blue-600 text-white font-bold flex items-center"
+                        @click="
+                            ;(tokenSelectType = 'to'),
+                                (showSelectTokenModal = true)
+                        "
                     >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                </button>
-                <input class="flex-1" :value="'0.0'" />
+                        <h6 class="px-2">Select a token</h6>
+                        <ChevronDownIcon width="18" height="18" />
+                    </button>
+                    <button
+                        v-else
+                        class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center"
+                        @click="
+                            ;(tokenSelectType = 'to'),
+                                (showSelectTokenModal = true)
+                        "
+                    >
+                        <cryptoicon :symbol="toToken.symbol" size="20" />
+                        <h6 class="px-2">{{ toToken.symbol }}</h6>
+                        <ChevronDownIcon width="18" height="18" />
+                    </button>
+                    <input
+                        type="number"
+                        placeholder="0.0"
+                        class="flex-1 text-xl"
+                        v-model="swapTokenAmount.to"
+                        @input="calculateExchangeForAmount('to')"
+                    />
+                </div>
+                <div
+                    v-if="this.swapToken.to"
+                    class="flex justify-between text-gray-500 dark:text-gray-300"
+                >
+                    <p class="pt-2 px-1">
+                        Balance: {{ walletBalanceFor(toToken.symbol) }}
+                        {{ toToken.symbol }}
+                    </p>
+                    <p
+                        v-if="dollarAmountForToken('to', toToken.symbol)"
+                        class="pt-2 px-1"
+                    >
+                        ~$ {{ dollarAmountForToken('to', toToken.symbol) }}
+                    </p>
+                </div>
+            </div>
+            <div
+                v-if="exchangeRate"
+                class="flex justify-end items-center text-gray-600 dark:text-gray-300"
+            >
+                <p class="p-1">
+                    1 {{ toToken.symbol }} = {{ 1 * exchangeRate }}
+                    {{ fromToken.symbol }}
+                </p>
+                <InformationCircleIcon width="16" height="16" />
             </div>
             <button
-                class="w-full mt-2 py-3 bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200"
+                class="w-full mt-2 bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200"
+                @click="swapAction()"
             >
-                <h6>Connect Wallet</h6>
+                <h6 class="py-1">{{ swapActionMessage }}</h6>
             </button>
         </div>
 
         <token-select
             v-if="showSelectTokenModal"
             @close="showSelectTokenModal = false"
+            @userSelectedToken="storeUserTokenSelect"
+            @userSelectedList="storeUserSelectedList"
         />
     </div>
 </template>
 
 <script>
-import TokenSelect from "./TokenSelect.vue"
-import TransactionSettingsModal from "./TransactionSettingsModal.vue"
+import { mapState } from 'vuex'
+import TokenSelect from './TokenSelect.vue'
+import TransactionSettingsModal from './TransactionSettingsModal.vue'
+import {
+    ChevronDownIcon,
+    CogIcon,
+    ArrowDownIcon,
+    InformationCircleIcon,
+} from '@vue-hero-icons/outline'
+
 export default {
-    methods: {},
-    name: "Swap",
+    methods: {
+        storeUserTokenSelect(symbol) {
+            this.$store.commit('setSwapToken', {
+                type: this.tokenSelectType,
+                symbol,
+            })
+        },
+        storeUserSelectedList(name) {
+            this.$store.commit('updateSelectedLists', name)
+        },
+        walletBalanceFor() {
+            return this.$store.state.wallet.balance
+        },
+        swapAction() {
+            if (!this.$store.state.wallet.address) {
+                this.$store.commit('setShowWalletConnectionModal', true)
+            }
+        },
+        getCurrentPriceFor() {
+            return 3000
+        },
+        calculateExchangeForAmount(type) {
+            let newAmount = 0
+            let amountToExchange = this.$store.state.swapTokenAmount[type]
+            if (this.$store.state.wallet.address) {
+                if (
+                    this.$store.state.swapToken.from &&
+                    this.$store.state.swapToken.to
+                ) {
+                    newAmount = amountToExchange * this.exchangeRate
+                }
+            }
+            this.$store.state.swapTokenAmount[
+                type === 'to' ? 'from' : 'to'
+            ] = newAmount
+        },
+    },
+    name: 'Swap',
     props: {
         msg: String,
     },
@@ -128,11 +201,75 @@ export default {
         return {
             showTransactionSettings: false,
             showSelectTokenModal: false,
+            tokenSelectType: 'from',
+            dollarAmountForToken(type, symbol) {
+                let amountForTokenType = this.$store.state.swapTokenAmount[type]
+                return this.$store.state.wallet.address && amountForTokenType
+                    ? parseFloat(
+                          amountForTokenType * this.getCurrentPriceFor(symbol)
+                      ).toFixed(2)
+                    : ''
+            },
         }
+    },
+    computed: {
+        ...mapState([
+            'tokens',
+            'swapToken',
+            'swapTokenAmount',
+            'selectedLists',
+        ]),
+        fromToken() {
+            return this.tokens.find(
+                (token) => token.symbol === this.swapToken.from
+            )
+        },
+        toToken() {
+            return this.tokens.find(
+                (token) => token.symbol === this.swapToken.to
+            )
+        },
+        swapActionMessage() {
+            let msg = ''
+            if (this.$store.state.wallet.address) {
+                if (
+                    this.$store.state.swapToken.from &&
+                    this.$store.state.swapToken.to
+                ) {
+                    if (
+                        this.$store.state.swapTokenAmount.to ||
+                        this.$store.state.swapTokenAmount.from
+                    ) {
+                        if (this.$store.state.wallet.balance) {
+                            msg = 'Swap'
+                        } else {
+                            msg = 'Insufficient Balance'
+                        }
+                    } else {
+                        msg = 'Enter an amount'
+                    }
+                } else {
+                    msg = 'Select a token'
+                }
+            } else {
+                msg = 'Connect Wallet'
+            }
+            return msg
+        },
+        exchangeRate() {
+            return this.$store.state.swapToken.from &&
+                this.$store.state.swapToken.to
+                ? 0.543
+                : 0
+        },
     },
     components: {
         TransactionSettingsModal,
         TokenSelect,
+        ChevronDownIcon,
+        ArrowDownIcon,
+        CogIcon,
+        InformationCircleIcon,
     },
     async mounted() {},
 }

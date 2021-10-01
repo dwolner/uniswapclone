@@ -1,47 +1,61 @@
 <template>
-    <button class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1">
-        <span class="active">Swap</span>
-        <span class="">Pool</span>
-        <span class="">Vote</span>
-        <span class="flex">
+    <button
+        class="flex rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold p-1"
+    >
+        <router-link :to="tab.path" v-for="tab in tabs" :key="tab.name">
+            <div class="py-1 px-3 mx-1 rounded-xl">
+                {{tab.name}}
+            </div>
+        </router-link>
+        <span class="flex py-1 px-3 mx-1 rounded-xl" @click="openLink('https://info.uniswap.org/#/')">
             <div class="mr-1">Charts</div>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                /></svg
-        ></span>
+            <ExternalLinkIcon width="12" height="12" />
+        </span>
     </button>
 </template>
 
 <script>
+import { ExternalLinkIcon } from "@vue-hero-icons/outline"
 export default {
-    methods: {},
-    name: "Tabs",
-    props: {
-        msg: String,
+    methods: {
+        openLink(url) {
+            window.open(url)
+        }
     },
-    components: {},
+    name: "Tabs",
+    data() {
+        return {
+            activeTab(tab) {
+                console.log('activeTab: ', tab.path, window.location.pathname)
+                return tab.path === window.location.pathname
+            },
+            tabs: [
+                {
+                    name: "Swap",
+                    path: "/",
+                },
+                {
+                    name: "Pool",
+                    path: "/pool",
+                },
+                {
+                    name: "Vote",
+                    path: "/vote",
+                }
+            ],
+        }
+    },
+    components: { ExternalLinkIcon },
     async mounted() {},
 }
 </script>
 
 <style scoped>
-button {
-    @apply px-2 py-2;
+.router-link-exact-active div {
+    background-color: rgb(209, 213, 219);
 }
-span {
-    @apply py-1 px-3 mx-1;
-}
-.active {
-    @apply bg-gray-200 rounded-xl;
+
+.dark .router-link-exact-active div {
+    background-color: rgb(55, 65, 81);
 }
 </style>

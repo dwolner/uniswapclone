@@ -1,36 +1,46 @@
 <template>
-    <nav class="w-full">
-        <div class="grid grid-cols-3 p-3">
-            <div class="flex">
-                <div class="hover:rotate-60 w-max">
-                    <img src="../assets/uni_logo_black.svg" />
-                </div>
+    <nav class="w-full flex justify-between items-center px-3 py-4 relative z-10">
+        <div class="flex xl:flex-1 items-center">
+            <div class="hover:rotate-60 w-max px-2">
+                <img
+                    v-if="!this.$store.state.darkMode"
+                    src="../assets/uni_logo_black.svg"
+                />
+                <img v-else src="../assets/uni_logo_white.svg" />
             </div>
-            <div class="flex justify-center">
+            <div class="hidden lg:flex xl:hidden pl-3">
                 <Tabs />
             </div>
-            <div class="flex justify-end relative">
-                <button class="bg-white text-black flex items-center">
-					<cryptoicon symbol="eth" size="20" />
-                    <h6 class="pl-2">Ethereum</h6>
-                </button>
-                <button class="bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200">
-                    <h6>Connect to a wallet</h6>
-                </button>
-                <button class="bg-white dark:bg-gray-900 dark:text-white" @click="showNavSettings = !showNavSettings">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
-                        />
-                    </svg>
-                </button>
+        </div>
+        <div class="hidden xl:flex flex-1 justify-center">
+            <Tabs />
+        </div>
+        <div class="flex xl:flex-1 justify-end relative">
+            <button
+                class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center px-3 py-1 mx-1 rounded-xl"
+            >
+                <cryptoicon symbol="eth" size="20" />
+                <h6 class="hidden sm:flex pl-2">Ethereum</h6>
+            </button>
+            <button
+                class="bg-pink-100 text-pink-700 dark:bg-blue-900 dark:text-blue-200 px-3 py-1 mx-1 rounded-xl"
+                @click="$store.commit('setShowWalletConnectionModal', true)"
+            >
+                <h6>Connect to a wallet</h6>
+            </button>
+            <button
+                class="bg-white dark:bg-gray-900 dark:text-white px-3 py-1 mx-1 rounded-xl"
+                @click="showNavSettings = !showNavSettings"
+            >
+                <DotsHorizontalIcon width="24" height="24" />
+            </button>
 
-                <nav-settings-modal :showNavSettings="showNavSettings" />
+            <nav-settings-modal :showNavSettings="showNavSettings" />
+
+            <div
+                class="grid lg:hidden fixed bottom-5 left-1/2 transform -translate-x-1/2"
+            >
+                <Tabs />
             </div>
         </div>
     </nav>
@@ -39,25 +49,23 @@
 <script>
 import NavSettingsModal from './NavSettingsModal.vue'
 import Tabs from './Tabs.vue'
+import { DotsHorizontalIcon } from '@vue-hero-icons/outline'
 
 export default {
     methods: {},
     name: 'Nav',
     data() {
         return {
-            showNavSettings: false
+            showNavSettings: false,
         }
     },
     components: {
         Tabs,
         NavSettingsModal,
+        DotsHorizontalIcon,
     },
     async mounted() {},
 }
 </script>
 
-<style scoped>
-	button {
-		@apply px-3 py-2 mx-1 rounded-xl;
-	}
-</style>
+<style scoped></style>

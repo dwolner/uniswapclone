@@ -1,11 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import dummyTokens from './dummyTokens.js'
+import dummyTokenLists from './dummyTokenLists.js'
+import dummyWallets from './dummyWallets.js'
 
 Vue.use(Vuex)
 
 const state = {
-    data: {
-        darkMode: false
+    darkMode: false,
+    showWalletConnectionModal: false,
+    tokens: dummyTokens,
+    tokenLists: dummyTokenLists,
+    wallets: dummyWallets,
+    selectedLists: [],
+    swapToken: {
+        from: 'ETH',
+        to: ''
+    },
+    swapTokenAmount: {
+        from: 0,
+        to: 0
+    },
+    wallet: {
+        type: 'metamask',
+        address: '',
+        balance: 0
     }
 }
 
@@ -25,6 +44,25 @@ const actions = {
 const mutations = {
     setDarkMode(state, val) {
         state.darkMode = val
+    },
+    setSwapToken(state, val) {
+        state.swapToken[val.type] = val.symbol
+    },
+    updateSelectedLists(state, val) {
+        if (state.selectedLists.includes(val)) {
+            state.selectedLists.splice(state.selectedLists.indexOf(val), 1)
+        } else {
+            state.selectedLists.push(val)
+        }
+    },
+    setSwapTokenAmount(state, val) {
+        state.swapTokenAmount[val.type] = val.amount
+    },
+    setWalletAddress(state, val) {
+        state.wallet.address = val
+    },
+    setShowWalletConnectionModal(state, val) {
+        state.showWalletConnectionModal = val
     }
 }
 

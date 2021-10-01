@@ -1,22 +1,27 @@
 <template>
     <div id="app" class="bg-white dark:bg-black">
         <div id="background-overlay" />
-        <div class="z-1 relative">
+        <div class="z-0 relative">
             <Nav />
-            <Swap />
+            <router-view></router-view>
+            <wallet-connection-modal v-if="showWalletConnectionModal" @close="$store.commit('setShowWalletConnectionModal', false)" />
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Nav from "./components/Nav.vue"
-import Swap from "./components/Swap.vue"
+import WalletConnectionModal from "./components/WalletConnectionModal.vue"
 
 export default {
     name: "EthereumApp",
     components: {
         Nav,
-        Swap,
+        WalletConnectionModal
+    },
+    computed: {
+        ...mapState(['showWalletConnectionModal'])
     },
     created() {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
