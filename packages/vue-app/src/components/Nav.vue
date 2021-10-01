@@ -3,13 +3,13 @@
         class="w-full flex justify-between items-center px-3 py-4 relative z-10"
     >
         <div class="flex xl:flex-1 items-center">
-            <div class="hover:rotate-60 w-max px-2">
+            <router-link to="/" class="transition-transform transform hover:-rotate-12 w-max px-2 cursor-pointer">
                 <img
                     v-if="!this.$store.state.darkMode"
                     src="../assets/uni_logo_black.svg"
                 />
                 <img v-else src="../assets/uni_logo_white.svg" />
-            </div>
+            </router-link>
             <div class="hidden lg:flex xl:hidden pl-3">
                 <Tabs />
             </div>

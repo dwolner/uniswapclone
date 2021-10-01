@@ -1,14 +1,15 @@
 <template>
     <div class="flex justify-center py-12 px-4">
         <div
-            class="w-full max-w-md p-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white font-bold rounded-2xl shadow-md"
+            class="w-full max-w-md p-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-white rounded-2xl shadow-md"
         >
             <div class="grid grid-cols-2 relative">
-                <div class="flex justify-left p-2 pb-3">
+                <div class="flex justify-left p-2 pb-3 font-bold">
                     <h6>Swap</h6>
                 </div>
                 <div class="flex justify-end items-start">
                     <button
+                        class="transition-transform transform hover:-rotate-12"
                         @click="
                             showTransactionSettings = !showTransactionSettings
                         "
@@ -16,7 +17,7 @@
                         <CogIcon width="22" height="22" />
                     </button>
                 </div>
-                <transaction-settings-modal
+                <transaction-settings
                     :showTransactionSettings="showTransactionSettings"
                 />
             </div>
@@ -89,11 +90,10 @@
         </div>
 
         <transition name="fade">
-            <token-select
+            <token-select-modal
                 v-if="showSelectTokenModal"
                 @close="showSelectTokenModal = false"
-                @userSelectedToken="storeUserTokenSelect"
-                @userSelectedList="storeUserSelectedList"
+                :tokenSelectType="tokenSelectType"
             />
         </transition>
     </div>
@@ -101,8 +101,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import TokenSelect from './TokenSelect.vue'
-import TransactionSettingsModal from './TransactionSettingsModal.vue'
+import TokenSelectModal from './TokenSelectModal.vue'
+import TransactionSettings from './TransactionSettings.vue'
 import SwapInput from './SwapInput.vue'
 import {
     ChevronDownIcon,
@@ -165,27 +165,22 @@ export default {
         },
     },
     components: {
-        TransactionSettingsModal,
-        TokenSelect,
+        TransactionSettings,
+        TokenSelectModal,
         ChevronDownIcon,
         ArrowDownIcon,
         CogIcon,
         InformationCircleIcon,
         SwapInput,
     },
-    methods: {
-        storeUserTokenSelect(symbol) {
-            this.$store.commit('setSwapToken', {
-                type: this.tokenSelectType,
-                symbol,
-            })
+    watch: {
+        swapToken() {
             this.calculateExchangeForAmount(
-                this.swapTokenAmount.from === 'from' ? 'to' : 'from'
+                this.swapTokenAmount.from ? 'to' : 'from'
             )
         },
-        storeUserSelectedList(name) {
-            this.$store.commit('updateSelectedLists', name)
-        },
+    },
+    methods: {
         swapAction() {
             //TODO: add more swap actions for states
             if (!this.wallet.address) {

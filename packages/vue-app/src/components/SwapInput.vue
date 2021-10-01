@@ -1,6 +1,6 @@
 <template>
     <div
-        class="px-3 py-4 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
+        class="px-3 py-4 font-bold bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
     >
         <div class="flex">
             <slot />
