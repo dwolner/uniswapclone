@@ -44,7 +44,7 @@ export default {
 #background-overlay {
     background: url("./assets/gradient_background.svg");
     background-size: cover;
-    opacity: 0.5;
+    opacity: 0.3;
     position: fixed;
     height: 100%;
     width: 100%;

@@ -64,6 +64,7 @@
             <div class="flex justify-center -my-3">
                 <button
                     class="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-white dark:border-gray-900 border-opacity-50 "
+                    @click="switchToAndFromTokensandAmounts()"
                 >
                     <ArrowDownIcon width="12" height="12" />
                 </button>
@@ -192,9 +193,32 @@ export default {
                     newAmount = amountToExchange * this.exchangeRate
                 }
             }
-            this.$store.state.swapTokenAmount[
-                type === 'to' ? 'from' : 'to'
-            ] = newAmount
+            this.$store.commit('setSwapTokenAmount', {
+                type: type === 'to' ? 'from' : 'to',
+                amount: newAmount,
+            })
+        },
+        switchToAndFromTokensandAmounts() {
+            let fromTokenSymbol = this.$store.state.swapToken.from
+            let toTokenSymbol = this.$store.state.swapToken.to
+            this.$store.commit('setSwapToken', {
+                type: 'from',
+                symbol: toTokenSymbol,
+            })
+            this.$store.commit('setSwapToken', {
+                type: 'to',
+                symbol: fromTokenSymbol,
+            })
+            let fromTokenAmount = this.$store.state.swapTokenAmount.from
+            let toTokenAmount = this.$store.state.swapTokenAmount.to
+            this.$store.commit('setSwapTokenAmount', {
+                type: 'from',
+                amount: toTokenAmount,
+            })
+            this.$store.commit('setSwapTokenAmount', {
+                type: 'to',
+                amount: fromTokenAmount,
+            })
         },
     },
     name: 'Swap',
