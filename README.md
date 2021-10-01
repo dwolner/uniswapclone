@@ -47,4 +47,4 @@ Tooltips
 
 
 ## Deployment Demo
-https://uniswapclone-4wkxoqgvr-dwolner.vercel.app/#/
+https://uniswapclone.vercel.app/#/
