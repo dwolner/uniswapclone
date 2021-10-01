@@ -79,7 +79,7 @@ export default {
             })
         },
     },
-    name: 'TokenSelect',
+    name: 'TokenSelectTemplate',
     props: ['tokenSelectType'],
     computed: {
         commonTokens() {
