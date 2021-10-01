@@ -48,14 +48,5 @@ export default {
 </script>
 
 <style scoped>
-button {
-    @apply p-2 rounded-2xl;
-}
-input {
-    background: none;
-    text-align: right;
-}
-p {
-    @apply text-sm;
-}
+
 </style>

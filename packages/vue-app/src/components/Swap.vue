@@ -20,7 +20,7 @@
                     :showTransactionSettings="showTransactionSettings"
                 />
             </div>
-            <div
+            <!-- <div
                 class="px-3 py-4 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
                 <div class="flex">
@@ -60,7 +60,20 @@
                         ~$ {{ dollarAmountForToken('from', fromToken.symbol) }}
                     </p>
                 </div>
-            </div>
+            </div> -->
+            <swap-input tokenSelectType="from" @calculateExchangeForAmount="calculateExchangeForAmount('from')">
+                <button
+                    class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center"
+                    @click="
+                        ;(tokenSelectType = 'from'),
+                            (showSelectTokenModal = true)
+                    "
+                >
+                    <cryptoicon :symbol="fromToken.symbol" size="20" />
+                    <h6 class="px-2">{{ fromToken.symbol }}</h6>
+                    <ChevronDownIcon width="18" height="18" />
+                </button>
+            </swap-input>
             <div class="flex justify-center -my-3">
                 <button
                     class="bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-white dark:border-gray-900 border-opacity-50 "
@@ -69,7 +82,30 @@
                     <ArrowDownIcon width="12" height="12" />
                 </button>
             </div>
-            <div
+            <swap-input tokenSelectType="to" @calculateExchangeForAmount="calculateExchangeForAmount('to')">
+                <button
+                    v-if="!this.swapToken.to"
+                    class="bg-pink-600 dark:bg-blue-600 text-white font-bold flex items-center"
+                    @click="
+                        ;(tokenSelectType = 'to'), (showSelectTokenModal = true)
+                    "
+                >
+                    <h6 class="px-2">Select a token</h6>
+                    <ChevronDownIcon width="18" height="18" />
+                </button>
+                <button
+                    v-else
+                    class="bg-white dark:bg-gray-900 text-gray-700 dark:text-white flex items-center"
+                    @click="
+                        ;(tokenSelectType = 'to'), (showSelectTokenModal = true)
+                    "
+                >
+                    <cryptoicon :symbol="toToken.symbol" size="20" />
+                    <h6 class="px-2">{{ toToken.symbol }}</h6>
+                    <ChevronDownIcon width="18" height="18" />
+                </button>
+            </swap-input>
+            <!-- <div
                 class="px-3 py-4 bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white rounded-2xl border-2 border-gray-200 dark:border-gray-700"
             >
                 <div class="flex">
@@ -119,7 +155,7 @@
                         ~$ {{ dollarAmountForToken('to', toToken.symbol) }}
                     </p>
                 </div>
-            </div>
+            </div> -->
             <div
                 v-if="exchangeRate"
                 class="flex justify-end items-center text-gray-600 dark:text-gray-300"
@@ -157,6 +193,7 @@ import {
     ArrowDownIcon,
     InformationCircleIcon,
 } from '@vue-hero-icons/outline'
+import SwapInput from './SwapInput.vue'
 
 export default {
     methods: {
@@ -227,9 +264,6 @@ export default {
         },
     },
     name: 'Swap',
-    props: {
-        msg: String,
-    },
     data() {
         return {
             showTransactionSettings: false,
@@ -304,6 +338,7 @@ export default {
         ArrowDownIcon,
         CogIcon,
         InformationCircleIcon,
+        SwapInput,
     },
     async mounted() {},
 }
