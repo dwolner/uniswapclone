@@ -4,7 +4,6 @@ This is a uniswap ui clone built with Vue and TailwindCSS.
 
 Project was intialized with `create-eth-app` to easily connect with the uniswap graphql api in the future (not required for this task but I want to continue developing this clone). UI is contained within `./packages/vue-app/` and is seperately servable.
 
-Requires `yarn`, `node`, `npm`.
 ```
 //install
 yarn install
@@ -15,6 +14,7 @@ yarn vue-app:serve
 //build
 yarn vue-app:build
 ```
+
 ## Current Features
 Keeps state using Vuex.
 
