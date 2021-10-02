@@ -5,7 +5,12 @@
             <Nav />
             <router-view></router-view>
             <transition name="fade">
-                <wallet-connection-modal v-if="showWalletConnectionModal" @close="$store.commit('setShowWalletConnectionModal', false)" />
+                <wallet-connection-modal
+                    v-if="showWalletConnectionModal"
+                    @close="
+                        $store.commit('setShowWalletConnectionModal', false)
+                    "
+                />
             </transition>
         </div>
     </div>
@@ -13,17 +18,17 @@
 
 <script>
 import { mapState } from 'vuex'
-import Nav from "./components/Nav.vue"
-import WalletConnectionModal from "./components/WalletConnectionModal.vue"
+import Nav from './components/Nav.vue'
+import WalletConnectionModal from './components/WalletConnectionModal.vue'
 
 export default {
-    name: "EthereumApp",
+    name: 'App',
     components: {
         Nav,
-        WalletConnectionModal
+        WalletConnectionModal,
     },
     computed: {
-        ...mapState(['showWalletConnectionModal'])
+        ...mapState(['showWalletConnectionModal']),
     },
     created() {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -35,7 +40,7 @@ export default {
 
 <style>
 #app {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -44,7 +49,7 @@ export default {
     height: 100vh;
 }
 #background-overlay {
-    background: url("./assets/gradient_background.svg");
+    background: url('./assets/gradient_background.svg');
     background-size: cover;
     opacity: 0.3;
     position: fixed;
